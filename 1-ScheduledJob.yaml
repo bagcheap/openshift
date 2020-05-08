@@ -1,0 +1,43 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata: 
+  name: helloworld
+spec:
+  schedule: "*/1 * * * *"  
+  concurrencyPolicy: "Replace" 
+  startingDeadlineSeconds: 200 
+  suspend: true            
+  successfulJobsHistoryLimit: 3 
+  failedJobsHistoryLimit: 1     
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            parent: "cronjobhelloworld"
+        spec:
+          containers:
+          - name: busybox
+            image: busybox
+#        command: [ "echo" , "Hello World!" ]
+            command: [ "echo" , "Hello Rupa" ]
+          restartPolicy: Never    
+ 
+
+# apiVersion: batch/v1
+# kind: Job
+# metadata:
+#   name: pi
+# spec:
+#   parallelism: 1    
+#   completions: 1    
+#   template:         
+#     metadata:
+#       name: pi
+#     spec:
+#       containers:
+#       - name: pi
+#         image: perl
+#         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+#       restartPolicy: OnFailure    
+            

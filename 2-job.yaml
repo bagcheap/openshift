@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata: 
+  name: helloworld
+spec:
+  #backoffLimit: 4
+  activeDeadlineSeconds: 10
+  parallelism: 1
+  completions: 2
+  template:
+    metadata:
+      name: helloworld 
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+#        command: [ "echo" , "Hello World!" ]
+        command: [ "sleep" , "60" ]
+      restartPolicy: Never    
+ 
+
+# apiVersion: batch/v1
+# kind: Job
+# metadata:
+#   name: pi
+# spec:
+#   parallelism: 1    
+#   completions: 1    
+#   template:         
+#     metadata:
+#       name: pi
+#     spec:
+#       containers:
+#       - name: pi
+#         image: perl
+#         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+#       restartPolicy: OnFailure    
+            
